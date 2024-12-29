@@ -1,0 +1,35 @@
+digraph "Conditional GAN Architecture" {
+	rankdir=LR size=28
+	Noise [label="Noise Vector (z)" fillcolor="#b3cde3" shape=ellipse style=filled]
+	LabelG [label="Label Embedding" fillcolor="#b3cde3" shape=ellipse style=filled]
+	ConcatG [label="Concatenate (z, Label)" fillcolor="#decbe4" shape=ellipse style=filled]
+	G1 [label="ConvTranspose2d(z+Label, 512, 4, 1, 0)" fillcolor="#ccebc5" shape=box style=filled]
+	G2 [label="ConvTranspose2d(512, 256, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	G3 [label="ConvTranspose2d(256, 128, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	G4 [label="ConvTranspose2d(128, 64, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	G5 [label="ConvTranspose2d(64, 3, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	OutputG [label="Generated Image (3x64x64)" fillcolor="#b3cde3" shape=ellipse style=filled]
+	ImageD [label="Input Image (3x64x64)" fillcolor="#b3cde3" shape=ellipse style=filled]
+	LabelD [label="Label Embedding" fillcolor="#b3cde3" shape=ellipse style=filled]
+	ConcatD [label="Concatenate (Image, Label)" fillcolor="#decbe4" shape=ellipse style=filled]
+	D1 [label="Conv2d(Image+Label, 128, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	D2 [label="Conv2d(128, 256, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	D3 [label="Conv2d(256, 512, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	D4 [label="Conv2d(512, 1, 4, 1, 0)" fillcolor="#fbb4ae" shape=box style=filled]
+	OutputD [label="Real/Fake Prediction" fillcolor="#b3cde3" shape=ellipse style=filled]
+	Noise -> ConcatG
+	LabelG -> ConcatG
+	ConcatG -> G1
+	G1 -> G2
+	G2 -> G3
+	G3 -> G4
+	G4 -> G5
+	G5 -> OutputG
+	ImageD -> ConcatD
+	LabelD -> ConcatD
+	ConcatD -> D1
+	D1 -> D2
+	D2 -> D3
+	D3 -> D4
+	D4 -> OutputD
+}

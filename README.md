@@ -77,6 +77,9 @@ Once again, I recommend tuning the hyperparameters and training for more epochs 
 
 ### 2. GANs
 #### Standard (Unconditional) GAN
+
+![GAN Architecture](media/gan_architecture_diagram.png)
+
 To train and generate images using a standard GAN:
 ```bash
 python gan.py
@@ -91,6 +94,9 @@ Here is an example gif showing the generated images after each epoch:
 
 
 #### Conditional GAN
+
+![Conditional GAN Architecture](media/conditional_gan_architecture_diagram.png)
+
 To train and generate images using a conditional GAN:
 ```bash
 python conditional_gan.py
@@ -117,6 +123,9 @@ Here are example generated images for the NORMAL and PNEUMONIA classes, at diffe
 
 
 ### 3. Variational Autoencoder (VAE)
+
+![VAE Architecture](media/vae_architecture_diagram.png)
+
 To train the VAE and generate synthetic images:
 ```bash
 python vae.py

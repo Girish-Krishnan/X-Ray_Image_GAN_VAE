@@ -1,0 +1,29 @@
+digraph "VAE Architecture" {
+	rankdir=LR size=28
+	Input [label="Input Image (3x128x128)" fillcolor="#b3cde3" shape=box style=filled]
+	Reconstructed [label="Reconstructed Image (3x128x128)" fillcolor="#b3cde3" shape=box style=filled]
+	EncConv1 [label="Conv2d(3, 32, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	EncConv2 [label="Conv2d(32, 64, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	EncConv3 [label="Conv2d(64, 128, 4, 2, 1)" fillcolor="#fbb4ae" shape=box style=filled]
+	Flatten [label=Flatten fillcolor="#fbb4ae" shape=ellipse style=filled]
+	Mu [label="μ (Mean)" fillcolor="#decbe4" shape=ellipse style=filled]
+	LogVar [label="σ² (Log Variance)" fillcolor="#decbe4" shape=ellipse style=filled]
+	Z [label="z (Latent Space)" fillcolor="#decbe4" shape=ellipse style=filled]
+	DecFC [label="Linear(Latent_dim, 128x16x16)" fillcolor="#ccebc5" shape=box style=filled]
+	DecDeconv1 [label="ConvTranspose2d(128, 64, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	DecDeconv2 [label="ConvTranspose2d(64, 32, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	DecDeconv3 [label="ConvTranspose2d(32, 3, 4, 2, 1)" fillcolor="#ccebc5" shape=box style=filled]
+	Input -> EncConv1
+	EncConv1 -> EncConv2
+	EncConv2 -> EncConv3
+	EncConv3 -> Flatten
+	Flatten -> Mu
+	Flatten -> LogVar
+	Mu -> Z
+	LogVar -> Z
+	Z -> DecFC
+	DecFC -> DecDeconv1
+	DecDeconv1 -> DecDeconv2
+	DecDeconv2 -> DecDeconv3
+	DecDeconv3 -> Reconstructed
+}
